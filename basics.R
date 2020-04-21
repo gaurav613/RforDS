@@ -34,3 +34,13 @@ x<-1:5
 y<-as.character(x)# convert datatypes
 y
 as.numeric(y)
+
+# sorting
+sort(murders$total)# sorts in increasing order
+index <- order(murders$total)# gives indices in increasing order of values
+murders$state[index]
+rank(murders$total)# gives the rank of values(smallest to biggest)
+
+# vector arithmetic
+murder_rate <- murders$total/murders$population # can operate on complete vectors
+murders$state[order(murder_rate,decreasing=TRUE)]

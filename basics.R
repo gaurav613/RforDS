@@ -119,4 +119,17 @@ avg<- function(x){
 
 avg(1:99)
 
+avg <- function(x, arithmetic=TRUE){
+  n<-length(x)
+  ifelse(arithmetic,sum(x)/n,prod(x)^(1/n))
+}
+
+# for loops
+
+for(i in 1:5){
+  print(i)
+}
+i# =5
+
+
 

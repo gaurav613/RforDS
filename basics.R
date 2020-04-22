@@ -76,4 +76,47 @@ grades <- data.frame(names=c("John","Juan","Jean","Yao"),
                      exam_1 = c(95,80,80,85),
                      exam_2 = c(90,85,85,90),
                      stringsAsFactors = FALSE)
-grades
+
+# basic plotting
+population_in_millions <- murders$population/10^6
+total_gun_murders <- murders$total
+plot(population_in_millions,total_gun_murders)
+
+hist(murder_rate)
+boxplot(rate~region,data=murders)
+
+# programming with R
+library(dslabs)
+data(murders)
+# conditionals- if/else
+
+murder_rate <- (murders$total/murders$population)*100000
+ind<-which.min(murder_rate)
+if(murder_rate[ind]<0.5){
+  print(murders$state[ind])
+} else{
+  print("No state available")
+}
+
+a<-0
+ifelse(a>0,1/a,NA)
+b<-c(0,1,2,-4,5)
+result <- ifelse(b>0,1/b,NA)
+result
+
+data("na_example")
+sum(is.na(na_example))
+no_na <- ifelse(is.na(na_example),0, na_example)
+sum(is.na(no_na))
+
+# functions
+
+avg<- function(x){
+  s <- sum(x)
+  l <- length(x)
+  sum(x)/length(x) # final line is returned
+}
+
+avg(1:99)
+
+

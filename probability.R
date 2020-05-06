@@ -179,3 +179,34 @@ tallest <- replicate(B, {
 })
 mean(tallest >= 7*12)    # proportion of times that tallest person exceeded 7 feet (84 inches)
 
+## random variables
+# define random variable x to be 1 if blue, 0 otherwise
+beads <- rep(c("red", "blue"), times = c(2, 3))
+x <- ifelse(sample(beads, 1) == "blue", 1, 0)
+
+# demonstrate that the random variable is different every time
+ifelse(sample(beads, 1) == "blue", 1, 0)
+ifelse(sample(beads, 1) == "blue", 1, 0)
+ifelse(sample(beads, 1) == "blue", 1, 0)
+
+# monte carlo simulation - chance of casion losing money
+# sampling model 1: define urn, then sample
+color <- rep(c("Black", "Red", "Green"), c(18, 18, 2)) # define the urn for the sampling model
+n <- 1000
+X <- sample(ifelse(color == "Red", -1, 1), n, replace = TRUE)
+X[1:10]
+
+# sampling model 2: define urn inside sample function by noting probabilities
+x <- sample(c(-1, 1), n, replace = TRUE, prob = c(9/19, 10/19))    # 1000 independent draws
+S <- sum(x)    # total winnings = sum of draws
+
+n <- 1000    # number of roulette players
+B <- 10000    # number of Monte Carlo experiments
+S <- replicate(B, {
+  X <- sample(c(-1,1), n, replace = TRUE, prob = c(9/19, 10/19))    # simulate 1000 spins
+  sum(X)    # determine total profit
+})
+
+mean(S < 0)    # probability of the casino losing money
+
+# The law of large numbers states that as  n  increases, the standard error of the average of a random variable decreases. In other words, when  n  is large, the average of the draws converges to the average of the urn.

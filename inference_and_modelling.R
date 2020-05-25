@@ -247,3 +247,21 @@ results <- one_poll_per_pollster %>%
   summarize(avg = mean(spread), se = sd(spread)/sqrt(length(spread))) %>%
   mutate(start = avg - 1.96*se, end = avg + 1.96*se)
 round(results*100, 1)
+
+# bayesian statistics
+
+# monte carlo simulation of disease testing (tp,tn,fp,fn)
+prev <- 0.00025    # disease prevalence
+N <- 100000    # number of tests
+outcome <- sample(c("Disease", "Healthy"), N, replace = TRUE, prob = c(prev, 1-prev))
+
+N_D <- sum(outcome == "Disease")    # number with disease
+N_H <- sum(outcome == "Healthy")    # number healthy
+
+# for each person, randomly determine if test is + or -
+accuracy <- 0.99
+test <- vector("character", N)
+test[outcome == "Disease"] <- sample(c("+", "-"), N_D, replace=TRUE, prob = c(accuracy, 1-accuracy))
+test[outcome == "Healthy"] <- sample(c("-", "+"), N_H, replace=TRUE, prob = c(accuracy, 1-accuracy))
+
+table(outcome, test)
